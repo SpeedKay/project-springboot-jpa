@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.jpa.entities.Category;
 import com.example.jpa.entities.Order;
+import com.example.jpa.entities.Product;
 import com.example.jpa.entities.User;
 import com.example.jpa.entities.enuns.OrderStatus;
 import com.example.jpa.repositories.CategoryRepository;
 import com.example.jpa.repositories.OrderRepository;
+import com.example.jpa.repositories.ProductRepository;
 import com.example.jpa.repositories.UserRepository;
 
 @Configuration
@@ -29,6 +31,8 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private OrderRepository orderRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -38,6 +42,12 @@ public class TestConfig implements CommandLineRunner{
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computas");
 		
+		Product p1 = new Product(null, "Senhor dos Anais", "abecedario", 99.99, "");
+		Product p2 = new Product(null, "Tevelisão Lenovo", "acebedario", 9999.99, "");
+		Product p3 = new Product(null, "Notebook Pro", "adebecario", 6666.66, "");
+		Product p4 = new Product(null, "PC Gay Mer", "arebecario", 16666.666, "");
+		Product p5 = new Product(null, "Harry Potter", "oiradeceba", 66.66, "");
+		
 		User u1 = new User(null, "Ronaldinho soccer", "ronaldinho@gmail.com", "91872407", "123456");
 		User u2 = new User(null, "Chama", "chama@gmail.com", "991829407", "654321");
 		
@@ -45,8 +55,8 @@ public class TestConfig implements CommandLineRunner{
 		Order o2 = new Order(null, Instant.parse("2026-11-13T20:30:03Z"), OrderStatus.WAITING_PAYMENT, u2);
 		Order o3 = new Order(null, Instant.parse("2026-12-13T23:59:59Z"), OrderStatus.WAITING_PAYMENT, u1);
 		
-		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		
