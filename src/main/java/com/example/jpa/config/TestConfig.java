@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.jpa.entities.Category;
 import com.example.jpa.entities.Order;
+import com.example.jpa.entities.OrderItem;
 import com.example.jpa.entities.Product;
 import com.example.jpa.entities.User;
 import com.example.jpa.entities.enuns.OrderStatus;
 import com.example.jpa.repositories.CategoryRepository;
+import com.example.jpa.repositories.OrderItemRepository;
 import com.example.jpa.repositories.OrderRepository;
 import com.example.jpa.repositories.ProductRepository;
 import com.example.jpa.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -45,7 +50,7 @@ public class TestConfig implements CommandLineRunner{
 		Product p1 = new Product(null, "Senhor dos Anais", "abecedario", 99.99, "");
 		Product p2 = new Product(null, "Tevelisão Lenovo", "acebedario", 9999.99, "");
 		Product p3 = new Product(null, "Notebook Pro", "adebecario", 6666.66, "");
-		Product p4 = new Product(null, "PC Gay Mer", "arebecario", 16666.666, "");
+		Product p4 = new Product(null, "PC Gay Mer", "arebecario", 166.666, "");
 		Product p5 = new Product(null, "Harry Potter", "oiradeceba", 66.66, "");
 		
 		User u1 = new User(null, "Ronaldinho soccer", "ronaldinho@gmail.com", "91872407", "123456");
@@ -70,6 +75,12 @@ public class TestConfig implements CommandLineRunner{
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p4.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p1.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 	
 }
